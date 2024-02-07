@@ -1,0 +1,15 @@
+html {
+    background-color: black;
+    
+}
+
+body {
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 5px 0 5px 0px;
+    background-image: url('../img/fond.png');
+    background-size: cover ;
+    overflow-y: hidden;
+    overflow-x: hidden;>
+}
