@@ -3,13 +3,71 @@ html {
     
 }
 
-body {
-    width: auto;
-    height: auto;
-    margin: auto;
-    padding: 5px 0 5px 0px;
-    background-image: url('../img/fond.png');
-    background-size: cover ;
-    overflow-y: hidden;
-    overflow-x: hidden;>
+header {
+    color: white;
+    border-bottom: solid 2pt white;
 }
+
+.Title {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+}
+
+p {
+    text-align: justify;
+    font-size: 14pt;
+}
+
+.head_part {
+    display: block;
+    height: auto;
+    width: 100;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.image_presentation {
+    display: inline-block;
+    width: 35%;
+    color: white;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.image_presentation_id {
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+}
+
+.text_description {
+    display: inline-block;
+    width: 35%;
+    color: white;
+    height: 10cm;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.text_description_content{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+ul {
+    color: white;
+    font-size: 12pt;
+}
+
+footer {
+    display: block;
+    text-align: center;
+    color: white;
+}
+
