@@ -20,6 +20,11 @@ p {
     font-size: 14pt;
 }
 
+a {
+    color: white;
+    font-style: italic;
+}
+
 .head_part {
     display: block;
     height: auto;
@@ -29,8 +34,9 @@ p {
 }
 
 .image_presentation {
-    display: inline-block;
-    width: 35%;
+    display: block;
+    float: left;
+    width: 40%;
     color: white;
     margin-top: 2cm;
     margin-bottom: 2cm;
@@ -45,8 +51,9 @@ p {
 }
 
 .text_description {
-    display: inline-block;
-    width: 35%;
+    display: block;
+    float: right;
+    width: 40%;
     color: white;
     height: 10cm;
     margin-top: 2cm;
@@ -60,9 +67,10 @@ p {
     margin-bottom: 5%;
 }
 
-ul {
-    color: white;
-    font-size: 12pt;
+.Logo {
+    display: block;
+    float: right;
+    height: 75px;
 }
 
 footer {
@@ -70,4 +78,3 @@ footer {
     text-align: center;
     color: white;
 }
-
