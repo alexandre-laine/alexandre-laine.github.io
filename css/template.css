@@ -21,8 +21,7 @@ p {
 }
 
 a {
-    color: white;
-    font-style: italic;
+    color: grey;
 }
 
 .head_part {
@@ -36,8 +35,9 @@ a {
 .image_presentation {
     display: block;
     float: left;
-    width: 40%;
+    width: 30%;
     color: white;
+    height: 10cm;
     margin-top: 2cm;
     margin-bottom: 2cm;
     margin-left: 5%;
@@ -53,13 +53,13 @@ a {
 .text_description {
     display: block;
     float: right;
-    width: 40%;
+    width: 50%;
     color: white;
     height: 10cm;
     margin-top: 2cm;
     margin-bottom: 2cm;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 0%;
+    margin-right: 10%;
 }
 
 .text_description_content{
@@ -73,8 +73,16 @@ a {
     height: 75px;
 }
 
-footer {
+.footer {
+    width: 100%;
     display: block;
+    border-top: solid 1pt white;
+    margin-top: 15cm;
     text-align: center;
     color: white;
+}
+
+.space {
+    margin-top: 1cm;
+    margin-bottom: 1cm;
 }
