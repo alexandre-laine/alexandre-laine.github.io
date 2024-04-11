@@ -37,7 +37,6 @@ a {
     float: left;
     width: 30%;
     color: white;
-    height: 10cm;
     margin-top: 2cm;
     margin-bottom: 2cm;
     margin-left: 5%;
@@ -48,6 +47,13 @@ a {
     margin-right: 10%;
     margin-left: 10%;
     width: 80%;
+}
+
+.logo_presentation {
+    width: 80%;
+    margin-top: 10px;
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
 .text_description {
@@ -69,7 +75,9 @@ a {
 
 .Logo {
     display: block;
-    float: right;
+    float: left;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
     height: 75px;
 }
 
