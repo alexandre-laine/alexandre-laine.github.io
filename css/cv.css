@@ -1,0 +1,57 @@
+html {
+    background-image: url("/img/moelle.png");
+}
+
+header {
+    height: 2cm;
+    display: block; 
+    background-color: black;
+    margin: 0 0 0 0;
+}
+
+h1 {
+    color: whitesmoke;
+    height: auto;
+    margin: inherit;
+    padding-left: 0.5cm;
+    padding-top: 0.7cm;
+}
+
+body {
+    margin: 0 0 0 0;
+}
+
+.ruban {
+    background-color: white;
+    opacity: 90%;
+    display: block;
+    margin: auto;
+    height: auto;
+    padding-bottom:  5%;
+    width: 80%;
+}
+
+.text-part {
+    padding: 1px 15px;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+ul {
+    list-style: square;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 0.5% 0%;
+    text-align: center;
+    display: block;
+    height: auto;
+}
