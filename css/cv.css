@@ -21,6 +21,34 @@ body {
     margin: 0 0 0 0;
 }
 
+.bandeau {
+    display: block;
+    padding: 1% 1% 1% 1%;
+    background-color: black;
+    height: auto;
+}
+
+.boutton {
+    background-color: black;
+    color: white;
+    padding: 1px 7%;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+  }
+
+a {
+    text-decoration: none
+}
+a:link, a:visited {
+    color: white;
+  }
+
+a:hover {
+    color: red;
+}
 .ruban {
     background-color: white;
     opacity: 90%;
@@ -37,6 +65,7 @@ body {
 
 h2 {
     margin: 10px 0;
+    color: black;
 }
 
 ul {
