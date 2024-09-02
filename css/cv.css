@@ -50,6 +50,7 @@ a:link, a:visited {
 a:hover {
     color: red;
 }
+
 .ruban {
     background-color: white;
     opacity: 90%;
@@ -71,6 +72,23 @@ h2 {
 
 ul {
     list-style: square;
+}
+
+.zone-message {
+    display: block;
+    margin: auto;
+    outline: none;
+    font-size: 0.8rem;
+    text-wrap: hard;
+    width: 90%;
+    height: 5cm;
+    resize: none;
+}
+
+input {
+    display: block;
+    margin: auto;
+    margin-top: 1%;
 }
 
 footer {

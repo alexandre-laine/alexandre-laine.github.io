@@ -6,4 +6,45 @@
         <link rel = "icon" href = "../img/favicon.png">
         <link rel="stylesheet" href="../css/cv.css" />
     </head> 
+
+    <header>
+        <h1>
+            Alexandre Lainé website
+        </h1>
+    </header>
+    <body>
+        <div class="bandeau">
+            <div class="boutton">
+                <a href="./cv.html">CV</a>
+            </div>
+            <div class="boutton">
+                <a href="./post.html">Posts</a>
+            </div>
+            <div class="boutton">
+                <a href="./tuto.html">Tuto</a>
+            </div>
+            <div class="boutton">
+                <a href="https://github.com/alexandre-laine">GitHub</a>
+            </div>
+            <div class="boutton">
+                <a href="./pages/contact.html">Contact</a>
+            </div>
+        </div>
+        <div class="ruban">
+            <textarea id="message_to_send" class="zone-message" placeholder="Ecrivez un message !"></textarea>
+
+            <script src="../js/fonction.js"></script>
+            
+            <input class="envoie-message" type="submit" value="Envoyer le message" onclick=take_message() />
+
+            <input class="envoie-message" type="submit" value="test" onclick=open_txt() />
+
+            
+        </div>
+    </body>
+
+    <footer>
+        © 2024 Alexandre Lainé
+    </footer>
+
 </html>
