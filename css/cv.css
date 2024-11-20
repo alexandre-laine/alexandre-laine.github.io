@@ -51,6 +51,14 @@ a:hover {
     color: red;
 }
 
+li a:link, li a:visited {
+    color: black;
+}
+
+li a:hover {
+    color: blue;
+}
+
 .ruban {
     background-color: white;
     opacity: 90%;
