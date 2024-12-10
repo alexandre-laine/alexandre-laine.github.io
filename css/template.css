@@ -18,6 +18,10 @@ h1 {
     padding-top: 0.7cm;
 }
 
+h2 {
+    color: whitesmoke;
+}
+
 body {
     margin: 0 0 0 0;
     height: 50cm;
@@ -44,6 +48,7 @@ body {
 a {
     text-decoration: none
 }
+
 a:link, a:visited {
     color: white;
   }
