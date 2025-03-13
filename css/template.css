@@ -18,13 +18,8 @@ h1 {
     padding-top: 0.7cm;
 }
 
-h2 {
-    color: whitesmoke;
-}
-
 body {
     margin: 0 0 0 0;
-    height: 50cm;
 }
 
 .bandeau {
@@ -43,18 +38,69 @@ body {
     position: relative;
     display: inline-block;
     font-size: 20px;
-}
+  }
 
 a {
     text-decoration: none
 }
-
 a:link, a:visited {
     color: white;
   }
 
+a.link-black:link, a.link-black:visited, li a:link, li a:visited {
+    color: black;
+}
+
 a:hover {
     color: red;
+}
+
+li a:hover {
+    color: blue;
+}
+
+a.link-black:hover {
+    color: green;
+}
+
+.ruban {
+    background-color: white;
+    opacity: 90%;
+    display: block;
+    margin: auto;
+    height: auto;
+    padding-bottom:  5%;
+    width: 80%;
+}
+
+.text-part {
+    padding: 1px 15px;
+}
+
+h2 {
+    margin: 10px 0;
+    color: black;
+}
+
+ul {
+    list-style: square;
+}
+
+.zone-message {
+    display: block;
+    margin: auto;
+    outline: none;
+    font-size: 0.8rem;
+    text-wrap: hard;
+    width: 90%;
+    height: 5cm;
+    resize: none;
+}
+
+input {
+    display: block;
+    margin: auto;
+    margin-top: 1%;
 }
 
 footer {
@@ -69,4 +115,3 @@ footer {
     display: block;
     height: auto;
 }
-
