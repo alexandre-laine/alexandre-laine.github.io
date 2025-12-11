@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width">
+        <title> Alexandre Lainé </title>
+        <link rel = "icon" href = "../img/favicon.png">
+        <link rel="stylesheet" href="./stim.css" />
+    </head>
+    
+    
+    <body>
+
+        <div id="texte">Appuyez sur n'importe quelle touche…</div>
+        <div id="fin">Merci d'avoir participé !</div>
+        <br>
+        <button id="restartBtn">Recommencer</button>
+
+        <img id="image" src="" alt="Image">
+
+        <script>
+            // --- Liste des images ---
+            const images = [
+                './stim/test0th0.000.png',
+                './stim/test0th0.165.png',
+                './stim/test0th0.331.png',
+                './stim/test0th0.349.png',
+                './stim/test0th0.496.png',
+                './stim/test0th0.661.png',
+                './stim/test0th0.698.png',
+                './stim/test0th0.827.png',
+                './stim/test0th0.992.png',
+                './stim/test0th1.047.png',
+                './stim/test0th1.157.png',
+                './stim/test0th1.323.png',
+                './stim/test0th1.396.png',
+                './stim/test0th1.488.png',
+                './stim/test0th1.653.png',
+                './stim/test0th1.745.png',
+                './stim/test0th1.819.png',
+                './stim/test0th1.984.png',
+                './stim/test0th2.094.png',
+                './stim/test0th2.150.png',
+                './stim/test0th2.315.png',
+                './stim/test0th2.443.png',
+                './stim/test0th2.480.png',
+                './stim/test0th2.646.png',
+                './stim/test0th2.793.png',
+                './stim/test0th2.811.png',
+                './stim/test0th2.976.png',
+                './stim/test0th3.142.png',
+                './stim/test1th0.000.png',
+                './stim/test1th0.165.png',
+                './stim/test1th0.331.png',
+                './stim/test1th0.349.png',
+                './stim/test1th0.496.png',
+                './stim/test1th0.661.png',
+                './stim/test1th0.698.png',
+                './stim/test1th0.827.png',
+                './stim/test1th0.992.png',
+                './stim/test1th1.047.png',
+                './stim/test1th1.157.png',
+                './stim/test1th1.323.png',
+                './stim/test1th1.396.png',
+                './stim/test1th1.488.png',
+                './stim/test1th1.653.png',
+                './stim/test1th1.745.png',
+                './stim/test1th1.819.png',
+                './stim/test1th1.984.png',
+                './stim/test1th2.094.png',
+                './stim/test1th2.150.png',
+                './stim/test1th2.315.png',
+                './stim/test1th2.443.png',
+                './stim/test1th2.480.png',
+                './stim/test1th2.646.png',
+                './stim/test1th2.793.png',
+                './stim/test1th2.811.png',
+                './stim/test1th2.976.png',
+                './stim/test1th3.142.png'
+            ];
+
+            let imagesRestantes = [...images];
+            let compteur = 0;
+            const maxImages = 10;
+            let started = false;
+            let reponses = [];
+            let derniereImage = null;
+
+            const texteEl = document.getElementById('texte');
+            const finEl = document.getElementById('fin');
+            const restartBtn = document.getElementById('restartBtn');
+            const imageEl = document.getElementById('image');
+
+            function ouvrirPleinEcran() {
+                const el = document.documentElement;
+                if (el.requestFullscreen) el.requestFullscreen();
+            }
+
+            function tirerImageUnique() {
+                const index = Math.floor(Math.random() * imagesRestantes.length);
+                const img = imagesRestantes[index];
+                imagesRestantes.splice(index, 1);
+                return img;
+            }
+
+            function genererCSV(data) {
+                let csv = "numero,image,choix\n";
+                data.forEach(row => {
+                    csv += `${row.numero},${row.image},${row.choix}\n`;
+                });
+                return csv;
+            }
+
+            function telechargerCSV(data) {
+                const csvContent = genererCSV(data);
+                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "reponses.csv";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            function montrerNouvelleImage() {
+                if (compteur >= maxImages) {
+                    imageEl.style.display = "none";
+                    finEl.style.display = "block";
+                    restartBtn.style.display = "block";
+
+                    telechargerCSV(reponses);
+                    return;
+                }
+
+                const nouvelle = tirerImageUnique();
+                derniereImage = nouvelle;
+
+                if (nouvelle) {
+                    imageEl.src = nouvelle;
+                    compteur++;
+                }
+            }
+
+            function resetExperience() {
+                imagesRestantes = [...images];
+                compteur = 0;
+                started = false;
+                reponses = [];
+                derniereImage = null;
+
+                imageEl.style.display = "none";
+                finEl.style.display = "none";
+                restartBtn.style.display = "none";
+                texteEl.style.display = "block";
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (!started) {
+                    started = true;
+                    ouvrirPleinEcran();
+                    texteEl.style.display = "none";
+                    imageEl.style.display = "block";
+                    montrerNouvelleImage();
+                    return;
+                }
+
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    const choix = event.key === "ArrowLeft" ? "gauche" : "droite";
+                    reponses.push({ numero: compteur, image: derniereImage, choix: choix });
+                    montrerNouvelleImage();
+                }
+            });
+
+            restartBtn.addEventListener('click', resetExperience);
+        </script>
+        </script>
+
+    </body>
+
+</html> 
