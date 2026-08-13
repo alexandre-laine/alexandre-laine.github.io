@@ -1,182 +1,995 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset = "utf-8">
-        <meta name = "viewport" content = "width=device-width">
-        <title> Alexandre Lainé </title>
-        <link rel = "icon" href = "../img/favicon.png">
-        <link rel="stylesheet" href="./stim.css" />
-    </head>
-    
-    
-    <body>
 
-        <div id="texte">Appuyez sur n'importe quelle touche…</div>
-        <div id="fin">Merci d'avoir participé !</div>
-        <br>
-        <button id="restartBtn">Recommencer</button>
+<html lang="fr">
 
-        <img id="image" src="" alt="Image">
+<head>
 
-        <script>
-            // --- Liste des images ---
-            const images = [
-                './stim/test0th0.000.png',
-                './stim/test0th0.165.png',
-                './stim/test0th0.331.png',
-                './stim/test0th0.349.png',
-                './stim/test0th0.496.png',
-                './stim/test0th0.661.png',
-                './stim/test0th0.698.png',
-                './stim/test0th0.827.png',
-                './stim/test0th0.992.png',
-                './stim/test0th1.047.png',
-                './stim/test0th1.157.png',
-                './stim/test0th1.323.png',
-                './stim/test0th1.396.png',
-                './stim/test0th1.488.png',
-                './stim/test0th1.653.png',
-                './stim/test0th1.745.png',
-                './stim/test0th1.819.png',
-                './stim/test0th1.984.png',
-                './stim/test0th2.094.png',
-                './stim/test0th2.150.png',
-                './stim/test0th2.315.png',
-                './stim/test0th2.443.png',
-                './stim/test0th2.480.png',
-                './stim/test0th2.646.png',
-                './stim/test0th2.793.png',
-                './stim/test0th2.811.png',
-                './stim/test0th2.976.png',
-                './stim/test0th3.142.png',
-                './stim/test1th0.000.png',
-                './stim/test1th0.165.png',
-                './stim/test1th0.331.png',
-                './stim/test1th0.349.png',
-                './stim/test1th0.496.png',
-                './stim/test1th0.661.png',
-                './stim/test1th0.698.png',
-                './stim/test1th0.827.png',
-                './stim/test1th0.992.png',
-                './stim/test1th1.047.png',
-                './stim/test1th1.157.png',
-                './stim/test1th1.323.png',
-                './stim/test1th1.396.png',
-                './stim/test1th1.488.png',
-                './stim/test1th1.653.png',
-                './stim/test1th1.745.png',
-                './stim/test1th1.819.png',
-                './stim/test1th1.984.png',
-                './stim/test1th2.094.png',
-                './stim/test1th2.150.png',
-                './stim/test1th2.315.png',
-                './stim/test1th2.443.png',
-                './stim/test1th2.480.png',
-                './stim/test1th2.646.png',
-                './stim/test1th2.793.png',
-                './stim/test1th2.811.png',
-                './stim/test1th2.976.png',
-                './stim/test1th3.142.png'
-            ];
+    <meta charset="utf-8">
 
-            let imagesRestantes = [...images];
-            let compteur = 0;
-            const maxImages = 10;
-            let started = false;
-            let reponses = [];
-            let derniereImage = null;
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
 
-            const texteEl = document.getElementById('texte');
-            const finEl = document.getElementById('fin');
-            const restartBtn = document.getElementById('restartBtn');
-            const imageEl = document.getElementById('image');
+    <title>Alexandre Lainé</title>
 
-            function ouvrirPleinEcran() {
-                const el = document.documentElement;
-                if (el.requestFullscreen) el.requestFullscreen();
+    <link
+        rel="icon"
+        href="../img/favicon.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./stim.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ========================================================= -->
+    <!-- Instructions -->
+    <!-- ========================================================= -->
+
+    <div id="texte">
+
+        <h2>Expérience</h2>
+
+        <p>
+            Appuyez sur n'importe quelle touche
+            pour commencer.
+        </p>
+
+        <p>
+            Utilisez ensuite les flèches
+            <strong>gauche</strong> et
+            <strong>droite</strong>
+            pour répondre.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- Progress -->
+    <!-- ========================================================= -->
+
+    <div
+        id="progress"
+        style="display: none;"
+    >
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!-- Stimulus -->
+    <!-- ========================================================= -->
+
+    <img
+        id="image"
+        src=""
+        alt="Stimulus"
+        style="display: none;"
+    >
+
+
+    <!-- ========================================================= -->
+    <!-- End -->
+    <!-- ========================================================= -->
+
+    <div
+        id="fin"
+        style="display: none;"
+    >
+
+        <h2>
+            Merci d'avoir participé !
+        </h2>
+
+        <p>
+            L'expérience est terminée.
+        </p>
+
+        <button id="restartBtn">
+            Recommencer
+        </button>
+
+    </div>
+
+
+<script>
+
+
+////////////////////////////////////////////////////////////////////
+// Experimental parameters
+////////////////////////////////////////////////////////////////////
+
+const maxImages = 10;
+
+
+////////////////////////////////////////////////////////////////////
+// Server
+////////////////////////////////////////////////////////////////////
+
+const serverURL =
+    "https://script.google.com/macros/s/AKfycbz4ApIs3X48oQXp-lnIIRi49Py7fUHXXmnKk4qX8beeXEGmevglze2HTqR5Hvi7596fvA/exec";
+
+
+////////////////////////////////////////////////////////////////////
+// Images
+////////////////////////////////////////////////////////////////////
+
+const images = [
+
+    './stim/test0th0.000.png',
+    './stim/test0th0.165.png',
+    './stim/test0th0.331.png',
+    './stim/test0th0.349.png',
+    './stim/test0th0.496.png',
+    './stim/test0th0.661.png',
+    './stim/test0th0.698.png',
+    './stim/test0th0.827.png',
+    './stim/test0th0.992.png',
+    './stim/test0th1.047.png',
+    './stim/test0th1.157.png',
+    './stim/test0th1.323.png',
+    './stim/test0th1.396.png',
+    './stim/test0th1.488.png',
+    './stim/test0th1.653.png',
+    './stim/test0th1.745.png',
+    './stim/test0th1.819.png',
+    './stim/test0th1.984.png',
+    './stim/test0th2.094.png',
+    './stim/test0th2.150.png',
+    './stim/test0th2.315.png',
+    './stim/test0th2.443.png',
+    './stim/test0th2.480.png',
+    './stim/test0th2.646.png',
+    './stim/test0th2.793.png',
+    './stim/test0th2.811.png',
+    './stim/test0th2.976.png',
+    './stim/test0th3.142.png',
+
+    './stim/test1th0.000.png',
+    './stim/test1th0.165.png',
+    './stim/test1th0.331.png',
+    './stim/test1th0.349.png',
+    './stim/test1th0.496.png',
+    './stim/test1th0.661.png',
+    './stim/test1th0.698.png',
+    './stim/test1th0.827.png',
+    './stim/test1th0.992.png',
+    './stim/test1th1.047.png',
+    './stim/test1th1.157.png',
+    './stim/test1th1.323.png',
+    './stim/test1th1.396.png',
+    './stim/test1th1.488.png',
+    './stim/test1th1.653.png',
+    './stim/test1th1.745.png',
+    './stim/test1th1.819.png',
+    './stim/test1th1.984.png',
+    './stim/test1th2.094.png',
+    './stim/test1th2.150.png',
+    './stim/test1th2.315.png',
+    './stim/test1th2.443.png',
+    './stim/test1th2.480.png',
+    './stim/test1th2.646.png',
+    './stim/test1th2.793.png',
+    './stim/test1th2.811.png',
+    './stim/test1th2.976.png',
+    './stim/test1th3.142.png',
+
+];
+
+
+////////////////////////////////////////////////////////////////////
+// HTML elements
+////////////////////////////////////////////////////////////////////
+
+const texteEl =
+    document.getElementById(
+        'texte'
+    );
+
+const finEl =
+    document.getElementById(
+        'fin'
+    );
+
+const progressEl =
+    document.getElementById(
+        'progress'
+    );
+
+const restartBtn =
+    document.getElementById(
+        'restartBtn'
+    );
+
+const imageEl =
+    document.getElementById(
+        'image'
+    );
+
+
+////////////////////////////////////////////////////////////////////
+// Experimental variables
+////////////////////////////////////////////////////////////////////
+
+let participantId = null;
+
+let imagesExperiment = [];
+
+let compteur = 0;
+
+let started = false;
+
+let experimentFinished = false;
+
+let responseAllowed = false;
+
+let reponses = [];
+
+let derniereImage = null;
+
+let trialStartTime = null;
+
+
+////////////////////////////////////////////////////////////////////
+// Participant ID
+////////////////////////////////////////////////////////////////////
+
+function genererParticipantId() {
+
+    if (
+        typeof crypto.randomUUID ===
+        "function"
+    ) {
+
+        return crypto.randomUUID();
+
+    }
+
+    return (
+        Date.now().toString(36)
+        +
+        "-"
+        +
+        Math.random()
+            .toString(36)
+            .substring(2)
+    );
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Shuffle array
+////////////////////////////////////////////////////////////////////
+
+function melangerListe(
+    array
+) {
+
+    const copie =
+        [...array];
+
+
+    for (
+        let i = copie.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random()
+                *
+                (i + 1)
+            );
+
+
+        [
+            copie[i],
+            copie[j]
+        ] = [
+            copie[j],
+            copie[i]
+        ];
+
+    }
+
+
+    return copie;
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Preload images
+////////////////////////////////////////////////////////////////////
+
+function prechargerImages() {
+
+    images.forEach(
+        source => {
+
+            const img =
+                new Image();
+
+            img.src =
+                source;
+
+        }
+    );
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Full screen
+////////////////////////////////////////////////////////////////////
+
+function ouvrirPleinEcran() {
+
+    const el =
+        document.documentElement;
+
+
+    if (
+        el.requestFullscreen
+    ) {
+
+        el.requestFullscreen()
+            .catch(
+                () => {}
+            );
+
+    }
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Prepare experiment
+////////////////////////////////////////////////////////////////////
+
+function preparerExperience() {
+
+    participantId =
+        genererParticipantId();
+
+
+    imagesExperiment =
+        melangerListe(
+            images
+        ).slice(
+            0,
+            maxImages
+        );
+
+
+    compteur =
+        0;
+
+
+    reponses =
+        [];
+
+
+    derniereImage =
+        null;
+
+
+    trialStartTime =
+        null;
+
+
+    responseAllowed =
+        false;
+
+
+    experimentFinished =
+        false;
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Display new image
+////////////////////////////////////////////////////////////////////
+
+function montrerNouvelleImage() {
+
+    ////////////////////////////////////
+    // End experiment
+
+    if (
+        compteur >=
+        imagesExperiment.length
+    ) {
+
+        terminerExperience();
+
+        return;
+
+    }
+
+
+    ////////////////////////////////////
+    // Disable response while loading
+
+    responseAllowed =
+        false;
+
+
+    ////////////////////////////////////
+    // Current image
+
+    derniereImage =
+        imagesExperiment[
+            compteur
+        ];
+
+
+    ////////////////////////////////////
+    // Progress
+
+    progressEl.textContent =
+        `Image ${compteur + 1} / ${imagesExperiment.length}`;
+
+
+    ////////////////////////////////////
+    // Display image
+
+    imageEl.onload =
+        function() {
+
+            trialStartTime =
+                performance.now();
+
+
+            responseAllowed =
+                true;
+
+        };
+
+
+    imageEl.src =
+        derniereImage;
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Save response
+////////////////////////////////////////////////////////////////////
+
+function enregistrerReponse(
+    choix,
+    key
+) {
+
+    if (
+        !responseAllowed
+    ) {
+
+        return;
+
+    }
+
+
+    ////////////////////////////////////
+    // Prevent double response
+
+    responseAllowed =
+        false;
+
+
+    ////////////////////////////////////
+    // Reaction time
+
+    const responseTime =
+        performance.now();
+
+
+    const reactionTime =
+        responseTime
+        -
+        trialStartTime;
+
+
+    ////////////////////////////////////
+    // Add response
+
+    reponses.push({
+
+        participant:
+            participantId,
+
+        numero:
+            compteur + 1,
+
+        image:
+            derniereImage,
+
+        choix:
+            choix,
+
+        key:
+            key,
+
+        reaction_time_ms:
+            Math.round(
+                reactionTime
+            ),
+
+        timestamp:
+            new Date()
+                .toISOString(),
+
+    });
+
+
+    ////////////////////////////////////
+    // Local backup
+
+    sauvegarderLocalement();
+
+
+    ////////////////////////////////////
+    // Next trial
+
+    compteur++;
+
+
+    montrerNouvelleImage();
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Local backup
+////////////////////////////////////////////////////////////////////
+
+function sauvegarderLocalement() {
+
+    const data = {
+
+        participant:
+            participantId,
+
+        responses:
+            reponses,
+
+    };
+
+
+    localStorage.setItem(
+        "experiment_results",
+        JSON.stringify(
+            data
+        )
+    );
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Generate CSV
+////////////////////////////////////////////////////////////////////
+
+function genererCSV(
+    data
+) {
+
+    let csv =
+        "participant,"
+        +
+        "numero,"
+        +
+        "image,"
+        +
+        "choix,"
+        +
+        "key,"
+        +
+        "reaction_time_ms,"
+        +
+        "timestamp\n";
+
+
+    data.forEach(
+        row => {
+
+            csv +=
+                `${row.participant},`
+                +
+                `${row.numero},`
+                +
+                `${row.image},`
+                +
+                `${row.choix},`
+                +
+                `${row.key},`
+                +
+                `${row.reaction_time_ms},`
+                +
+                `${row.timestamp}\n`;
+
+        }
+    );
+
+
+    return csv;
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Download CSV
+////////////////////////////////////////////////////////////////////
+
+function telechargerCSV(
+    data
+) {
+
+    const csvContent =
+        genererCSV(
+            data
+        );
+
+
+    const blob =
+        new Blob(
+            [csvContent],
+            {
+                type:
+                    "text/csv;charset=utf-8;"
             }
+        );
 
-            function tirerImageUnique() {
-                const index = Math.floor(Math.random() * imagesRestantes.length);
-                const img = imagesRestantes[index];
-                imagesRestantes.splice(index, 1);
-                return img;
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href =
+        url;
+
+
+    a.download =
+        `reponses_${participantId}.csv`;
+
+
+    document.body.appendChild(
+        a
+    );
+
+
+    a.click();
+
+
+    document.body.removeChild(
+        a
+    );
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Send results
+////////////////////////////////////////////////////////////////////
+
+async function envoyerResultats() {
+
+    const data = {
+
+        participant:
+            participantId,
+
+        responses:
+            reponses,
+
+    };
+
+
+    try {
+
+        await fetch(
+            serverURL,
+            {
+                method:
+                    "POST",
+
+                mode:
+                    "no-cors",
+
+                headers: {
+
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        data
+                    ),
+
             }
+        );
 
-            function genererCSV(data) {
-                let csv = "numero,image,choix\n";
-                data.forEach(row => {
-                    csv += `${row.numero},${row.image},${row.choix}\n`;
-                });
-                return csv;
-            }
 
-            function telechargerCSV(data) {
-                const csvContent = genererCSV(data);
-                const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-                const url = URL.createObjectURL(blob);
+        return true;
 
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "reponses.csv";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
+    }
 
-            function montrerNouvelleImage() {
-                if (compteur >= maxImages) {
-                    imageEl.style.display = "none";
-                    finEl.style.display = "block";
-                    restartBtn.style.display = "block";
 
-                    telechargerCSV(reponses);
-                    return;
-                }
+    catch (
+        error
+    ) {
 
-                const nouvelle = tirerImageUnique();
-                derniereImage = nouvelle;
+        console.error(
+            "Error while saving results:",
+            error
+        );
 
-                if (nouvelle) {
-                    imageEl.src = nouvelle;
-                    compteur++;
-                }
-            }
 
-            function resetExperience() {
-                imagesRestantes = [...images];
-                compteur = 0;
-                started = false;
-                reponses = [];
-                derniereImage = null;
+        return false;
 
-                imageEl.style.display = "none";
-                finEl.style.display = "none";
-                restartBtn.style.display = "none";
-                texteEl.style.display = "block";
-            }
+    }
 
-            document.addEventListener('keydown', (event) => {
-                if (!started) {
-                    started = true;
-                    ouvrirPleinEcran();
-                    texteEl.style.display = "none";
-                    imageEl.style.display = "block";
-                    montrerNouvelleImage();
-                    return;
-                }
+}
 
-                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-                    const choix = event.key === "ArrowLeft" ? "gauche" : "droite";
-                    reponses.push({ numero: compteur, image: derniereImage, choix: choix });
-                    montrerNouvelleImage();
-                }
-            });
 
-            restartBtn.addEventListener('click', resetExperience);
-        </script>
-        </script>
+////////////////////////////////////////////////////////////////////
+// End experiment
+////////////////////////////////////////////////////////////////////
 
-    </body>
+async function terminerExperience() {
 
-</html> 
+    started =
+        false;
+
+
+    experimentFinished =
+        true;
+
+
+    responseAllowed =
+        false;
+
+
+    ////////////////////////////////////
+    // Hide stimulus
+
+    imageEl.style.display =
+        "none";
+
+
+    progressEl.style.display =
+        "none";
+
+
+    ////////////////////////////////////
+    // Send results
+
+    const success =
+        await envoyerResultats();
+
+
+    ////////////////////////////////////
+    // Display end screen
+
+    finEl.style.display =
+        "block";
+
+
+    ////////////////////////////////////
+    // Backup if network error
+
+    if (
+        !success
+    ) {
+
+        console.error(
+            "Results could not be sent."
+        );
+
+
+        telechargerCSV(
+            reponses
+        );
+
+    }
+
+
+    ////////////////////////////////////
+    // Verification
+
+    console.table(
+        reponses
+    );
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Reset experiment
+////////////////////////////////////////////////////////////////////
+
+function resetExperience() {
+
+    preparerExperience();
+
+
+    texteEl.style.display =
+        "block";
+
+
+    imageEl.style.display =
+        "none";
+
+
+    progressEl.style.display =
+        "none";
+
+
+    finEl.style.display =
+        "none";
+
+
+    started =
+        false;
+
+}
+
+
+////////////////////////////////////////////////////////////////////
+// Keyboard events
+////////////////////////////////////////////////////////////////////
+
+document.addEventListener(
+    'keydown',
+    event => {
+
+
+        ////////////////////////////////////
+        // Ignore keyboard auto-repeat
+
+        if (
+            event.repeat
+        ) {
+
+            return;
+
+        }
+
+
+        ////////////////////////////////////
+        // Ignore keyboard after experiment
+
+        if (
+            experimentFinished
+        ) {
+
+            return;
+
+        }
+
+
+        ////////////////////////////////////
+        // Start experiment
+
+        if (
+            !started
+        ) {
+
+            started =
+                true;
+
+
+            ouvrirPleinEcran();
+
+
+            texteEl.style.display =
+                "none";
+
+
+            imageEl.style.display =
+                "block";
+
+
+            progressEl.style.display =
+                "block";
+
+
+            montrerNouvelleImage();
+
+
+            return;
+
+        }
+
+
+        ////////////////////////////////////
+        // Left response
+
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
+
+            event.preventDefault();
+
+
+            enregistrerReponse(
+                "gauche",
+                event.key
+            );
+
+        }
+
+
+        ////////////////////////////////////
+        // Right response
+
+        else if (
+            event.key ===
+            "ArrowRight"
+        ) {
+
+            event.preventDefault();
+
+
+            enregistrerReponse(
+                "droite",
+                event.key
+            );
+
+        }
+
+    }
+);
+
+
+////////////////////////////////////////////////////////////////////
+// Restart button
+////////////////////////////////////////////////////////////////////
+
+restartBtn.addEventListener(
+    'click',
+    resetExperience
+);
+
+
+////////////////////////////////////////////////////////////////////
+// Initialization
+////////////////////////////////////////////////////////////////////
+
+prechargerImages();
+
+preparerExperience();
+
+
+</script>
+
+</body>
+
+</html>
